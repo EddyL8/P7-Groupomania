@@ -1,6 +1,7 @@
 <template>
+    <Header />
     <div class="homepage">
-        <Header />
+        
         <img src="../assets/icon-left-font.png" alt="Logo de l'entreprise groupomania" title="logo groupomania" />
         <div class="homepage-bloc">
             <div class='signup-login'>
@@ -39,7 +40,7 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import serviceAuth from '../services/serviceAuth.js';
+    import { serviceAccount } from '../services/serviceAccount';
     import Header from '../components/Header.vue';
     import Footer from '../components/Footer.vue';
 
@@ -68,9 +69,9 @@
             this.showPassword = !this.showPassword ;
             },
             submit() {
-            serviceAuth.login(this.user)
+            serviceAccount.login(this.user)
                 .then(() => {
-                    this.$router.push('/home')
+                    this.$router.push('/Home')
                 })
                 .catch((error: any) => { console.log(error)})
             }
@@ -79,32 +80,13 @@
 </script>
 
 <style lang="scss">
-    body {
-        display: block;
-        min-width: 320px;
-        max-width: 1920px;
-        margin: 0 auto;
-    }
-    header {
-        padding: 25px 20px;
-        background-color: #FD2D01;
-    }
-    .header-logo {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .header-logo img {
-        width: 20%;
-        height: 50px;
-        object-fit: cover;
-    }
     .homepage {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        max-width: 1280px;
+        margin: 30px;
     }
     .homepage img {
         width: 50%;
@@ -135,9 +117,6 @@
         margin: 5px 0;
         text-align: left;
     }
-    .btn-show-text {
-        position: relative;
-    }
     form input {
         width: 100%;
         margin-bottom: 15px;
@@ -148,6 +127,9 @@
         outline: none;
         box-sizing: border-box;
     }
+    .btn-show-text {
+        position: relative;
+    }
     .show-text {
         display: flex;
         justify-content: center;
@@ -157,6 +139,16 @@
         height: 45px;
         right: 6%;
         bottom: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: border-color 0.25s ;
+        font-size: 1em;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .show-text:hover {
+        border-color: #FD2D01;
     }
     .btn-homepage {
         width: 80%;
@@ -196,22 +188,5 @@
         color: #FD2D01;
         font-weight: bold;
         cursor: pointer;
-    }
-    footer {
-        background-color: #FD2D01;
-    }
-    .footer {
-        color: white;
-        font-weight: 500;
-    }
-    .footer ul {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 0;
-        padding: 10px 20px;
-    }
-    .footer li {
-        list-style: none;
     }
     </style>
