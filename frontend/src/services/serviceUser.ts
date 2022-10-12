@@ -4,6 +4,10 @@ let createUser = (user) => {
   return Axios.post("auth/signup", user);
 };
 
+let loginUser = (user) => {
+  return Axios.post("/auth/login", user);
+};
+
 let getUser = (id) => {
   return Axios.get("auth/user/" + id);
 };
@@ -21,6 +25,7 @@ let deleteUser = (id) => {
 }
 export const serviceUser = {
   createUser,
+  loginUser,
   getUser,
   getAllUsers,
   updateUser,

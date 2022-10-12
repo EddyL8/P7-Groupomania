@@ -1,9 +1,5 @@
 import Axios from "./serviceApi";
 
-let login = () => {
-  return Axios.post("/auth/login");
-};
-
 let logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
@@ -27,7 +23,6 @@ let isLogged = () => {
 };
 
 export const serviceAccount = {
-  login,
   logout,
   getToken,
   saveToken,

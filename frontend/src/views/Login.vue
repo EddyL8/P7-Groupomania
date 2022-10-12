@@ -40,7 +40,7 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import { serviceAccount } from '../services/serviceAccount';
+    import { serviceUser } from '../services/serviceUser';
     import Header from '../components/Header.vue';
     import Footer from '../components/Footer.vue';
 
@@ -69,7 +69,7 @@
             this.showPassword = !this.showPassword ;
             },
             submit() {
-            serviceAccount.login(this.user)
+            serviceUser.loginUser(this.user)
                 .then(() => {
                     this.$router.push('/Home')
                 })
