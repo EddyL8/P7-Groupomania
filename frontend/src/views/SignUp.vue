@@ -92,7 +92,7 @@
                 .then(() => {
                     this.$router.push('/Home')
                 })
-                .catch((error: any) => { console.log(error)})
+                .catch((error: any) => { console.log(error) })
             }
         }
       }

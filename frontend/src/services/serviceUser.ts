@@ -1,11 +1,16 @@
 import Axios from "./serviceApi";
+import { serviceAccount }  from './serviceAccount'
 
 let createUser = (user) => {
   return Axios.post("auth/signup", user);
 };
 
-let loginUser = (user) => {
-  return Axios.post("/auth/login", user);
+let loginUser = async (user) => {
+  return Axios.post("/auth/login", user)
+  .then(res => {
+    serviceAccount.saveToken(res.data.token)
+    serviceAccount.saveId(res.data.userId)
+  })
 };
 
 let getUser = (id) => {

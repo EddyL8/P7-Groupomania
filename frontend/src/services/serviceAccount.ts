@@ -17,6 +17,10 @@ let saveId = (id) => {
   localStorage.setItem("userId", id);
 };
 
+let getId= () => {
+  return localStorage.getItem("userId");
+};
+
 let isLogged = () => {
   let token = localStorage.getItem("token");
   return !!token; 
@@ -27,5 +31,6 @@ export const serviceAccount = {
   getToken,
   saveToken,
   saveId,
+  getId,
   isLogged,
 };

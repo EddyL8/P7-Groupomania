@@ -8,7 +8,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xssClean = require('xss-clean'); 
 const cors = require('cors'); 
 
-const sauceRoutes = require('./routes/sauce');
+const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 
 require('dotenv').config();
@@ -38,8 +38,8 @@ app.use((req, res, next) => {
     next();
   });
 
-app.use('/api/sauces', sauceRoutes);
+app.use('/api/post', postRoutes);
 app.use('/api/auth', userRoutes);
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/medias', express.static(path.join(__dirname, 'medias')));
 
 module.exports = app;

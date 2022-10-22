@@ -20,14 +20,21 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
+    import { serviceAccount } from '../services/serviceAccount';
     import Header from '../components/Header.vue';
 
     export default defineComponent( {
         components: { 
             Header 
         },
-      }
-    );
+        methods: {
+            logout() {
+                serviceAccount.logout()
+                this.$router.push('/')
+            }
+        }
+    });
+    
 </script>
 
 <style lang="scss">
