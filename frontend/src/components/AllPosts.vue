@@ -1,14 +1,11 @@
 <template>
-    <div class="post">
-        <div v-for="post in posts" :key="post" class="post-container">
-            <div class="no-posts" v-if="posts.length === 0">
-                <h1> C'est très calme par ici...</h1>
-                <img class="no-posts-img" src="../assets/tumbleweed.gif">
-            </div>
+    <div v-for="post in posts" :key="post">
+        <div class="no-posts" v-if="posts.length === 0">
+            <h1> C'est très calme par ici...</h1>
+            <img class="no-posts-img" src="../assets/tumbleweed.gif">
         </div>
-    <Post />
+        <Post />
     </div>
-
 </template>
 
 <script lang="ts">
@@ -23,10 +20,18 @@
         components: { 
             Post
         },
+        props: ['posts'],
         data() {
             return {
                 posts: []
             }
+        },
+        mounted() {
+            servicePost.getAllPosts(this.post)
+            .then((res) => {
+                this.posts = res.data
+                console.log(res.data)
+            })
         },
         methods: {
             getAllPosts(post) {
@@ -37,6 +42,5 @@
                 .catch(err => console.log(err))
             }
         }
-      }
-    );
+    });
 </script>

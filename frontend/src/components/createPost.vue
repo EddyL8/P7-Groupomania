@@ -1,21 +1,16 @@
 <template>
-    <div class="post">
-        <form>
+    <div class="post-container">
+        <label for="post-message"></label>
+        <textarea type="textarea" name="post-message" id="post-message" wrap="soft" rows="5" cols="25" 
+            @input="resize()" ref="textarea" v-model="post.message" placeholder="Exprimez-vous !" ></textarea>
 
-            <div class="post-container">
-                <label for="post-message"></label>
-                <textarea type="textarea" name="post-message" id="post-message" wrap="soft" rows="5" cols="25" 
-                    @input="resize()" ref="textarea" v-model="post.message" placeholder="Exprimez-vous !" ></textarea>
-
-                <label for="post-file"></label>
-                <input class="upload-file" type="file" name="post-file" id="post-file" 
-                    accept="image/jpg , image/jpeg, image/png, image/webp, image/gif, video/mp4, video/webm" 
-                    ref="file" @change="uploadFile" />   
-            </div>
-
-            <button type="submit" @click.prevent="createPost" class="btn-post">Envoyer</button>
-        </form>
+        <label for="post-file"></label>
+        <input class="upload-file" type="file" name="post-file" id="post-file" 
+            accept="image/jpg , image/jpeg, image/png, image/webp, image/gif, video/mp4, video/webm" 
+            ref="file" @change="uploadFile" />   
     </div>
+
+    <button type="submit" @click.prevent="createPost" class="btn-post">Envoyer</button>
 </template>
 
 <script lang="ts">
@@ -29,7 +24,6 @@ export default defineComponent( {
         return {
             file: '',
             post: {
-                userId:'',
                 message:''
             }
         }
@@ -47,7 +41,7 @@ export default defineComponent( {
         createPost() {
             servicePost.createPost(this.post)
             .then(() => {
-                 this.$router.push("/home") 
+                 this.$router.push("/Home") 
             })
             .catch(err => console.log(err))
         },
@@ -56,19 +50,6 @@ export default defineComponent( {
 </script>
 
 <style lang="scss">
-.post {
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    padding: 75px 0;
-    background-color: #FFD7D7;
-}
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-}
 .post-container {
     display: flex;
     flex-direction: column;

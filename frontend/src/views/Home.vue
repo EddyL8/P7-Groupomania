@@ -1,8 +1,12 @@
 <template>
     <HeaderNav />
     <div class="home">
-        <createPost />
-        <AllPosts />
+        <div class="wall">
+            <div class="post-wall">
+                <createPost />
+                <AllPosts />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -31,5 +35,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.wall {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    padding: 75px 0;
+    background-color: #FFD7D7;
+}
+.post-wall {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
 }
 </style>
