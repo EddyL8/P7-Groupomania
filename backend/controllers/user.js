@@ -40,3 +40,20 @@ exports.login = (req, res, next) => {
     })
     .catch(error => res.status(500).json({ error }));
 };
+
+exports.getUser = (req, res, next) => {
+    User.findOne({ _id: req.params.id })
+      .then((user) => {
+        res.status(200).json({
+          user: {
+              userId: user._id,
+              lastname: user.lastname,
+              firstname: user.firstname,
+              isAdmin: user.isAdmin
+          },
+        });
+      })
+      .catch((error) =>
+        res.status(500).json((error = "Erreur recupération user"))
+      );
+  };

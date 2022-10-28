@@ -4,6 +4,7 @@ const passwordValidator = require('../middleware/password');
 const userCtrl = require('../controllers/user'); 
 
 router.post('/signup', passwordValidator, userCtrl.signup); 
-router.post('/login', passwordValidator, userCtrl.login);  
+router.post('/login', passwordValidator, userCtrl.login);
+router.get("/:id", userCtrl.getUser);
 
 module.exports = router;

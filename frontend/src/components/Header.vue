@@ -13,6 +13,7 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     padding: 25px 30px;
     background-color: #FD2D01;
 }

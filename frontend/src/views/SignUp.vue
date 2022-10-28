@@ -6,7 +6,7 @@
         <div class="homepage-bloc">
             <div class='signup-login'>
                 <h1>Inscription</h1>
-                <form class="form-box">
+                <form @submit.prevent="submit" class="form-box">
                     <label for="lastname">
                         <h3>Nom</h3>
                     </label>

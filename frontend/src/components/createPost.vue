@@ -1,14 +1,14 @@
 <template>
-    <div class="post-container">
+    <form class="post-create">
         <label for="post-message"></label>
         <textarea type="textarea" name="post-message" id="post-message" wrap="soft" rows="5" cols="25" 
             @input="resize()" ref="textarea" v-model="post.message" placeholder="Exprimez-vous !" ></textarea>
 
-        <label for="post-file"></label>
-        <input class="upload-file" type="file" name="post-file" id="post-file" 
+        <label for="media"></label>
+        <input class="upload-file" type="file" name="media" id="media" 
             accept="image/jpg , image/jpeg, image/png, image/webp, image/gif, video/mp4, video/webm" 
             ref="file" @change="uploadFile" />   
-    </div>
+    </form>
 
     <button type="submit" @click.prevent="createPost" class="btn-post">Envoyer</button>
 </template>
@@ -39,7 +39,7 @@ export default defineComponent( {
             this.file = event.target.files[0]
         },
         createPost() {
-            servicePost.createPost(this.post)
+            servicePost.createPost(this.post, this.file)
             .then(() => {
                  this.$router.push("/Home") 
             })
@@ -50,10 +50,11 @@ export default defineComponent( {
 </script>
 
 <style lang="scss">
-.post-container {
+.post-create {
     display: flex;
     flex-direction: column;
     width: 80%;
+    max-width: 500px;
 }
 textarea {
     padding: 10px;
@@ -74,13 +75,19 @@ textarea {
 }
 .btn-post {
     width: 80%;
+    max-width: 500px;
     height: 40px;
     margin: 5px 0;
     border: 1px solid #4E5166;
     border-radius: 10px;
     color: white;
-    background: #FD2D01;
-    font-size: 1.2rem;
+    background: #4E5166;
+    font-size: 1.1rem;
     cursor: pointer;
+}
+.btn-post:hover {
+    color: #FFF;
+    background: #FD2D01;
+    transition: 0.2s;
 }
 </style>

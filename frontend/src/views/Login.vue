@@ -6,7 +6,7 @@
         <div class="homepage-bloc">
             <div class='signup-login'>
                 <h1>Connexion</h1>
-                <form class="form-box">
+                <form @submit.prevent="submit" class="form-box">
                     <label for="email">
                         <h3>Email</h3>
                     </label>
@@ -161,9 +161,9 @@
         border: none;
         border-color: none;
         color: white;
+        background: #4E5166;
         font-size: 1.1rem;
         text-align: center;
-        background: #4E5166;
         cursor: pointer;
     }
     .btn-homepage:hover {

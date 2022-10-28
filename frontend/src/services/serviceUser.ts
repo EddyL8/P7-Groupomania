@@ -14,7 +14,7 @@ let loginUser = async (user) => {
 };
 
 let getUser = (id) => {
-  return Axios.get("auth/user/" + id);
+  return Axios.get("user/" + id);
 };
 
 let getAllUsers = () => {
