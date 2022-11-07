@@ -1,18 +1,23 @@
 <template>
     <header>
         <div class="header-logo">
-            <img src="/src/assets/icon-left-font-monochrome-white.png" 
-            alt="Logo de l'entreprise groupomania" title=" logo groupomania" />
+            <img src="/src/assets/icon-left-font-monochrome-white.png" alt="Logo de l'entreprise groupomania" />
         </div>
         <div class="nav">
             <router-link to="/profile">
-                <button class="button-nav" type="button"><i class="fa-solid fa-user"></i></button>
+                <button class="button-nav" type="button" title="Profil" alt="Page du profil utilisateur">
+                    <i class="fa-solid fa-user"></i>
+                </button>
             </router-link>
             <router-link to="/settings">
-                <button class="button-nav" type="button"><i class="fa-solid fa-bars"></i></button>
+                <button class="button-nav" type="button" title="Paramètres" alt="Réglages du profil">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </router-link>
             <router-link to="/" @click="logout" >
-                <button class="button-nav" type="button" ><i class="fa-solid fa-right-from-bracket"></i></button>
+                <button class="button-nav" type="button" title="Déconnexion" alt="Déconnexion du profil">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
             </router-link>  
         </div>
     </header>

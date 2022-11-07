@@ -10,24 +10,32 @@
                     <label for="lastname">
                         <h3>Nom</h3>
                     </label>
-                    <input type="text" v-model="user.lastname" placeholder="Nom" required>
+                    <input @click="resetErrorMessage" type="text" class="input" v-model="user.lastname" 
+                        title="Ex: Luthor" placeholder="Nom" required>
                 
                     <label for="firstname">
                         <h3>Prénom</h3>
                     </label>
-                    <input type="text" v-model="user.firstname" placeholder="Prénom" required>
+                    <input @click="resetErrorMessage" type="text" class="input" v-model="user.firstname" 
+                        title="Ex: Alexander" placeholder="Prénom" required>
 
                     <label for="email">
                         <h3>Email</h3>
                     </label>
-                    <input type="email" v-model="user.email" placeholder="Adresse email" required>
+                    <input @click="resetErrorMessage" type="email" class="input" v-model="user.email" 
+                        title="Ex: lex.luthor@groupomania.com" 
+                        placeholder="Adresse email" required>
 
                     <div class="btn-show-text">
                         <label for="password">
                             <h3> Mot de passe</h3>
                         </label>
-                        <input v-if="showPassword" type="text" class="input" v-model="user.password" placeholder="Mot de passe" required>
-                        <input v-else type="password" class="input" v-model="user.password" placeholder="Mot de passe" required>
+                        <input @click="resetErrorMessage" v-if="showPassword" type="text" class="input" v-model="user.password" 
+                            title="Doit contenir au moins 1 majuscule, 1 miniscule, 1 caractère spécial et 2 chiffres" 
+                            placeholder="Mot de passe" required>
+                        <input @click="resetErrorMessage" v-else type="password" class="input" v-model="user.password" 
+                            title="Doit contenir au moins 1 majuscule, 1 miniscule, 1 caractère spécial et 2 chiffres"
+                            placeholder="Mot de passe" required>
 
                         <button class="show-text" @click="toggleShow">
                             <span class="icon is-small is-right">
@@ -39,11 +47,18 @@
                     <label for="passwordConfirm">
                         <h3>Confirmation du mot de passe</h3>
                     </label>
-                    <input v-if="showPassword" type="text" class="input" v-model="user.passwordConfirm" placeholder="Mot de passe" required>
-                    <input v-else type="password" class="input" v-model="user.passwordConfirm" placeholder="Mot de passe" required>
+                    <input @click="resetErrorMessage" v-if="showPassword" type="text" class="input" v-model="user.passwordConfirm" 
+                    title="Doit contenir au moins 1 majuscule, 1 miniscule, 1 caractère spécial et 2 chiffres"
+                    placeholder="Mot de passe" required>
+                    <input @click="resetErrorMessage" v-else type="password" class="input" v-model="user.passwordConfirm" 
+                        title="Doit contenir au moins 1 majuscule, 1 miniscule, 1 caractère spécial et 2 chiffres"
+                        placeholder="Mot de passe" required>
+
+                    <div v-if="!valid" class="error-message">{{ errorMessage }}</div>
 
                     <input type="submit" @click.prevent="submit" class="btn-homepage" value="S'inscrire">
                 </form>
+
                 <div class="redirect">
                     <div class="text-redirect">Déjà inscrit ?</div>
                     <router-link class="redirect-to-signup-login" to="/Login" >Se connecter</router-link>
@@ -75,6 +90,8 @@
                     password: '',
                     passwordConfirm: ''
                 },
+                valid: true,
+                errorMessage: '',
                 showPassword: false
             }
         },
@@ -93,6 +110,11 @@
                     this.$router.push('/Home')
                 })
                 .catch((error: any) => { console.log(error) })
+                this.valid = false;
+                this.errorMessage = "Informations invalides ou manquantes !";
+            },
+            resetErrorMessage() {
+                this.valid = true;
             }
         }
       }

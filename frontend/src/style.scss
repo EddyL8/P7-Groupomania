@@ -12,6 +12,18 @@ body {
 h1 {
   font-size: 2em;
 }
+.input:focus {
+  border: 1px solid #FD2D01;
+}
+.error-message {
+  color: #FD2D01;
+  font-weight: bold;
+}
+.error-message-post {
+  width: 60%;
+  color: #FD2D01;
+  font-weight: bold;
+}
 #app {
   margin: 0 auto;
   text-align: center;

@@ -10,14 +10,17 @@
                     <label for="email">
                         <h3>Email</h3>
                     </label>
-                    <input type="email" v-model="user.email" placeholder="Adresse email" required>
+                    <input @click="resetErrorMessage" type="email" class="input" 
+                        v-model="user.email" placeholder="Adresse email" required>
 
                     <div class="btn-show-text">
                         <label for="password">
                             <h3> Mot de passe</h3>
                         </label>
-                        <input v-if="showPassword" type="text" class="input" v-model="user.password" placeholder="Mot de passe" required>
-                        <input v-else type="password" class="input" v-model="user.password" placeholder="Mot de passe" required>
+                        <input @click="resetErrorMessage" v-if="showPassword" type="text" class="input" 
+                            v-model="user.password" placeholder="Mot de passe" required>
+                        <input @click="resetErrorMessage" v-else type="password" class="input" 
+                            v-model="user.password" placeholder="Mot de passe" required>
 
                         <button class="show-text" @click="toggleShow">
                             <span class="icon is-small is-right">
@@ -25,6 +28,8 @@
                             </span>
                         </button>
                     </div>
+
+                    <div v-if="!valid" class="error-message">{{ errorMessage }}</div>
 
                     <input type="submit" @click.prevent="submit" class="btn-homepage" value="Se connecter">
                 </form>
@@ -56,6 +61,8 @@
                     email: '',
                     password: '',
                 },
+                valid: true,
+                errorMessage: '',
                 showPassword: false
             }
         },
@@ -73,7 +80,12 @@
                 .then(() => {
                     this.$router.push('/Home')
                 })
-                .catch((error: any) => { console.log(error)})
+                .catch((error: any) => { console.log(error)});
+                this.valid = false;
+                this.errorMessage = "Informations invalides ou manquantes !";
+            },
+            resetErrorMessage() {
+                this.valid = true;
             }
         },
     });

@@ -1,8 +1,19 @@
 import Axios from "./serviceApi";
 
+let isAdmin = false
+
+let saveAdminStatus = (adminStatus) => {
+  isAdmin = adminStatus;
+}
+
+let getAdminStatus = () => {
+  return isAdmin;
+}
+
 let logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
+  isAdmin = false;
 };
 
 let getToken = () => {
@@ -27,6 +38,8 @@ let isLogged = () => {
 };
 
 export const serviceAccount = {
+  saveAdminStatus,
+  getAdminStatus,
   logout,
   getToken,
   saveToken,

@@ -13,8 +13,8 @@ let getOnePost = (id) => {
   return Axios.get("post/" + id);
 };
 
-let getAllPosts = (post) => {
-  return Axios.get("post", post);
+let getAllPosts = () => {
+  return Axios.get("post");
 };
 
 let modifyPost = (post, file) => {

@@ -10,11 +10,12 @@ let loginUser = async (user) => {
   .then(res => {
     serviceAccount.saveToken(res.data.token)
     serviceAccount.saveId(res.data.userId)
+    serviceAccount.saveAdminStatus(res.data.isAdmin)
   })
 };
 
-let getUser = (id) => {
-  return Axios.get("user/" + id);
+let getUser = () => {
+  return Axios.get("user/");
 };
 
 let getAllUsers = () => {

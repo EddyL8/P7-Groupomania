@@ -1,16 +1,19 @@
 <template>
     <form class="post-create">
         <label for="post-message"></label>
-        <textarea type="textarea" name="post-message" id="post-message" wrap="soft" rows="5" cols="25" 
-            @input="resize()" ref="textarea" v-model="post.message" placeholder="Exprimez-vous !" ></textarea>
+        <textarea @click="resetErrorMessage" type="textarea" name="post-message" id="post-message" 
+            wrap="soft" rows="5" cols="25" @input="resize()" ref="textarea" 
+            v-model="post.message" placeholder="Exprimez-vous !" ></textarea>
 
         <label for="media"></label>
-        <input class="upload-file" type="file" name="media" id="media" 
+        <input @click="resetErrorMessage" class="upload-file" type="file" name="media" id="media" 
             accept="image/jpg , image/jpeg, image/png, image/webp, image/gif, video/mp4, video/webm" 
             ref="file" @change="uploadFile" />   
     </form>
 
     <button type="submit" @click.prevent="createPost" class="btn-post">Envoyer</button>
+    
+    <div v-if="!valid" class="error-message-post">{{ errorMessage }}</div>
 </template>
 
 <script lang="ts">
@@ -25,7 +28,9 @@ export default defineComponent( {
             file: '',
             post: {
                 message:''
-            }
+            },
+            valid: true,
+            errorMessage: '',
         }
     },
     methods: {
@@ -41,10 +46,16 @@ export default defineComponent( {
         createPost() {
             servicePost.createPost(this.post, this.file)
             .then(() => {
-                 this.$router.push("/Home") 
+                this.$router.push("/Home");
+                window.location.reload(); 
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+            this.valid = false;
+            this.errorMessage = "Veuillez ajouter un message et une image pour envoyer une publication !";
         },
+        resetErrorMessage() {
+            this.valid = true;
+        }
     }
 })
 </script>
@@ -58,6 +69,7 @@ export default defineComponent( {
 }
 textarea {
     padding: 10px;
+    border: 1px solid #4E5166;
     border-bottom: transparent;
     border-radius: 10px 10px 0 0;
     font-size: 1.2rem;

@@ -26,27 +26,27 @@
             }
         },
         mounted() {
-            servicePost.getAllPosts(this.post)
-            .then((res) => {
-                this.posts = res.data
-                console.log(res.data)
-            }),
-            serviceUser.getUser(this.post)
+            servicePost.getAllPosts()
             .then((res) => {
                 this.posts = res.data
                 console.log(res.data)
             })
+            /*serviceUser.getUser()
+            .then((res) => {
+                this.posts = res.data
+                console.log(res.data)
+            })*/
         },
         methods: {
             getAllPosts(post) {
-                servicePost.getAllPosts(this.post)
+                servicePost.getAllPosts()
                 .then(() => {
                     this.$router.push("/AllPosts", post) 
                 })
                 .catch(err => console.log(err))
             },
-            getUser(post) {
-                serviceUser.getUser(this.post)
+            getUser() {
+                serviceUser.getUser()
                 .then(() => {
                      
                 })

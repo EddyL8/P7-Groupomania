@@ -8,8 +8,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xssClean = require('xss-clean'); 
 const cors = require('cors'); 
 
-const postRoutes = require('./routes/post');
-const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post.routes');
+const userRoutes = require('./routes/user.routes');
 
 require('dotenv').config();
 

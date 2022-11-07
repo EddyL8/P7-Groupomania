@@ -6,51 +6,61 @@
         <div class="post-file">
             <img v-if="post.mediaUrl" :src="post.mediaUrl" alt="Média du post">
         </div>
+
+        <div class="btn-post-container">
+            <div class="post-like">
+                <button @click="likePost()" name="like" class="btn-like">
+                    <i class="fa-solid fa-face-smile"></i>
+                </button>
+                <p>{{ post.likes }}</p>
+
+                <button @click="likePost()" name="dislike" class="btn-like">
+                    <i class="fa-solid fa-face-meh-blank"></i>
+                </button>
+                <p>{{ post.dislikes }}</p>
+            </div>
+
+            <div class="post-modify-delete">
+                <button v-if="userId === post.userId || !isAdmin" @click="toggleToEdit" 
+                    class="btn-modify-delete" aria-label="Modifier ce post">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button v-if="userId === post.userId || !isAdmin" @click="deletePost()" 
+                    class="btn-modify-delete" aria-label="Supprimer ce post">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
     <div v-else>
         <form @submit.prevent="modifyPost()" class="post-modify">
             <label for="post-message"></label>
-            <textarea type="textarea" name="post-message" id="post-message" wrap="soft" rows="5" cols="25" 
+            <textarea @click="resetErrorMessage" type="textarea" name="post-message" id="post-message" wrap="soft" rows="5" cols="25" 
             @input="resize()" ref="textarea" v-model="post.message"></textarea>
 
             <label for="media"></label>
-            <input class="upload-file" type="file" name="media" id="media" 
+            <input @click="resetErrorMessage" class="upload-file" type="file" name="media" id="media" 
                 accept="image/jpg , image/jpeg, image/png, image/webp, image/gif, video/mp4, video/webm" 
                 ref="file" @change="uploadFile" />
 
-           <button type="submit" class="btn-post">Enregistrer les modifications</button>
+            <div class="btn-modify">
+                <button type="submit" class="btn-post-modify">Enregistrer les modifications</button>
+
+                <button type="button" class="btn-cancel" @click="cancelEdit">Annuler</button>
+
+                <div v-if="!valid" class="error-message-post">{{ errorMessage }}</div>
+            </div>
         </form>
     </div>
 
-    <div class="btn-post-container">
-        <div class="post-like">
-            <button @click="likePost(post.id, 1)" name="like" class="btn-like">
-                <i class="fa-solid fa-face-smile"></i>
-            </button>
-            <p>{{ post.likes }}</p>
-
-            <button @click="likePost(post.id, -1)" name="dislike" class="btn-like">
-                <i class="fa-solid fa-face-meh-blank"></i>
-            </button>
-            <p>{{ post.dislikes }}</p>
-        </div>
-
-        <div class="post-modify-delete">
-            <button v-if="userId === post.userId || isAdmin" @click="toggleToEdit" class="btn-modify-delete" aria-label="Modifier ce post">
-                <i class="fa-solid fa-pen-to-square"></i>
-            </button>
-            <button v-if="userId === post.userId || isAdmin" @click="deletePost()" class="btn-modify-delete" aria-label="Supprimer ce post">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-        </div>
-    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { serviceUser } from '../services/serviceUser';
 import { servicePost } from "../services/servicePost"
+import { serviceAccount } from '../services/serviceAccount';
 
 export default defineComponent( {
     name: "Post",
@@ -58,8 +68,16 @@ export default defineComponent( {
     data() {
         return {
             isEdit: false,
-            userId: ,
-            isAdmin:
+            valid: true,
+            errorMessage: '',
+        }
+    },
+    computed: {
+        userId() {
+            return serviceAccount.getId();
+        },
+        isAdmin() {
+            return serviceAccount.getAdminStatus();
         }
     },
     methods: {
@@ -73,10 +91,14 @@ export default defineComponent( {
         toggleToEdit() {
             this.isEdit= true;
         },
+        cancelEdit() {
+            this.isEdit= false;
+        },
         deletePost() {
             servicePost.deletePost(this.post._id)
             .then(() => {
                 this.$emit('remove');
+                window.location.reload();
             })
             .catch(err => console.log(err))
         },
@@ -93,9 +115,15 @@ export default defineComponent( {
             console.log('modifyPost')
             servicePost.modifyPost(this.post, this.file)
             .then(() => {
-             //    this.$router.push("/Home") 
+            //    this.$router.push("/Home")
+                window.location.reload();
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+            this.valid = false;
+            this.errorMessage = "Veuillez ajouter un message et une image pour envoyer une publication !";
+        },
+        resetErrorMessage() {
+            this.valid = true;
         },
         likePost() {
 
@@ -111,7 +139,6 @@ export default defineComponent( {
 .post-modify {
     display: flex;
     flex-direction: column;
-    width: 80%;
     max-width: 500px;
 }
 .post-content {
@@ -180,6 +207,40 @@ export default defineComponent( {
 }
 .btn-modify-delete:hover {
     color: #FD2D01;
+    transition: 0.2s;
+}
+.btn-modify {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.btn-post-modify {
+    width: 70%;
+    max-width: 500px;
+    height: 40px;
+    margin: 5px 0;
+    border: 1px solid #4E5166;
+    border-radius: 10px;
+    color: white;
+    background: #4E5166;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.btn-cancel {
+    width: 25%;
+    max-width: 500px;
+    height: 40px;
+    margin: 5px 0;
+    border: 1px solid #4E5166;
+    border-radius: 10px;
+    color: white;
+    background: #4E5166;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.btn-post-modify:hover, .btn-cancel:hover {
+    color: #FFF;
+    background: #FD2D01;
     transition: 0.2s;
 }
 </style>
