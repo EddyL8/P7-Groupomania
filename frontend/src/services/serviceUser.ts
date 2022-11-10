@@ -1,12 +1,12 @@
-import Axios from "./serviceApi";
+import groupomaniaApi from "./serviceApi";
 import { serviceAccount }  from './serviceAccount'
 
 let createUser = (user) => {
-  return Axios.post("auth/signup", user);
+  return groupomaniaApi().post("auth/signup", user);
 };
 
 let loginUser = async (user) => {
-  return Axios.post("/auth/login", user)
+  return groupomaniaApi().post("/auth/login", user)
   .then(res => {
     serviceAccount.saveToken(res.data.token)
     serviceAccount.saveId(res.data.userId)
@@ -15,19 +15,19 @@ let loginUser = async (user) => {
 };
 
 let getUser = () => {
-  return Axios.get("user/");
+  return groupomaniaApi().get("user/");
 };
 
 let getAllUsers = () => {
-  return Axios.get("auth/users");
+  return groupomaniaApi().get("auth/users");
 };
 
 let updateUser = (user) => {
- return Axios.patch("auth/user/"+ user.id, user);
+ return groupomaniaApi().patch("auth/user/"+ user.id, user);
 };
 
 let deleteUser = (id) => {
-  return Axios.delete("/auth/user/"+id)
+  return groupomaniaApi().delete("/auth/user/"+id)
 }
 export const serviceUser = {
   createUser,

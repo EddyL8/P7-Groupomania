@@ -102,10 +102,10 @@
         },
         methods: {
             toggleShow() {
-            this.showPassword = !this.showPassword ;
+                this.showPassword = !this.showPassword ;
             },
             submit() {
-            serviceUser.createUser(this.user)
+                serviceUser.createUser(this.user)
                 .then(() => {
                     this.$router.push('/Home')
                 })

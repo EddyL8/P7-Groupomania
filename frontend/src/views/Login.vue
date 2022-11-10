@@ -1,7 +1,6 @@
 <template>
     <Header />
     <div class="homepage">
-        
         <img src="../assets/icon-left-font.png" alt="Logo de l'entreprise groupomania" title="logo groupomania" />
         <div class="homepage-bloc">
             <div class='signup-login'>
@@ -22,7 +21,7 @@
                         <input @click="resetErrorMessage" v-else type="password" class="input" 
                             v-model="user.password" placeholder="Mot de passe" required>
 
-                        <button class="show-text" @click="toggleShow">
+                        <button class="show-text" @click.prevent="toggleShow">
                             <span class="icon is-small is-right">
                                 <i class="fas" :class="{ 'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"></i>
                             </span>
@@ -73,10 +72,10 @@
         },
         methods: {
             toggleShow() {
-            this.showPassword = !this.showPassword ;
+                this.showPassword = !this.showPassword ;
             },
             submit() {
-            serviceUser.loginUser(this.user)
+                serviceUser.loginUser(this.user)
                 .then(() => {
                     this.$router.push('/Home')
                 })

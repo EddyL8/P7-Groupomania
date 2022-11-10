@@ -1,4 +1,4 @@
-import Axios from './serviceApi';
+import groupomaniaApi from './serviceApi';
 import { serviceAccount } from './serviceAccount';
 
 let createPost = (post, file) => {
@@ -6,15 +6,15 @@ let createPost = (post, file) => {
   const formData = new FormData();
   formData.append("post", JSON.stringify(post));
   formData.append("media", file);
-  return Axios.post("/post", formData);
+  return groupomaniaApi().post("/post", formData);
 }
 
 let getOnePost = (id) => {
-  return Axios.get("post/" + id);
+  return groupomaniaApi().get("post/" + id);
 };
 
 let getAllPosts = () => {
-  return Axios.get("post");
+  return groupomaniaApi().get("post");
 };
 
 let modifyPost = (post, file) => {
@@ -22,12 +22,12 @@ let modifyPost = (post, file) => {
   const formData = new FormData();
   formData.append("post", JSON.stringify(post));
   formData.append("media", file);
-  return Axios.put("post/" + post._id, formData);
+  return groupomaniaApi().put("post/" + post._id, formData);
 };
 
 let deletePost = (id) => {
   console.log(id)
-  return Axios.delete("post/" + id);
+  return groupomaniaApi().delete("post/" + id);
 };
 
 export const servicePost = {

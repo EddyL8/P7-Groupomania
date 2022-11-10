@@ -21,11 +21,11 @@
             </div>
 
             <div class="post-modify-delete">
-                <button v-if="userId === post.userId || !isAdmin" @click="toggleToEdit" 
+                <button v-if="userId === post.userId || isAdmin" @click="toggleToEdit()" 
                     class="btn-modify-delete" aria-label="Modifier ce post">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button v-if="userId === post.userId || !isAdmin" @click="deletePost()" 
+                <button v-if="userId === post.userId || isAdmin" @click="deletePost()" 
                     class="btn-modify-delete" aria-label="Supprimer ce post">
                     <i class="fa-solid fa-trash"></i>
                 </button>
@@ -84,7 +84,7 @@ export default defineComponent( {
         getOnePost(id) {
             servicePost.getOnePost(this.post)
             .then(() => {
-                this.$router.push("/Post", id) 
+                this.$router.push("/Home", id) 
             })
             .catch(err => console.log(err))
         },

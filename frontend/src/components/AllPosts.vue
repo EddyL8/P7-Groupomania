@@ -26,11 +26,8 @@
             }
         },
         mounted() {
-            servicePost.getAllPosts()
-            .then((res) => {
-                this.posts = res.data
-                console.log(res.data)
-            })
+            this.getAllPosts()
+
             /*serviceUser.getUser()
             .then((res) => {
                 this.posts = res.data
@@ -40,8 +37,10 @@
         methods: {
             getAllPosts(post) {
                 servicePost.getAllPosts()
-                .then(() => {
-                    this.$router.push("/AllPosts", post) 
+                .then((res) => {
+                    this.posts = res.data
+                    console.log(res.data)
+                    //this.$router.push("/Home", post) 
                 })
                 .catch(err => console.log(err))
             },
