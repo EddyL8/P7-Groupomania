@@ -9,8 +9,8 @@ let createPost = (post, file) => {
   return groupomaniaApi().post("/post", formData);
 }
 
-let getOnePost = (id) => {
-  return groupomaniaApi().get("post/" + id);
+let getOnePost = () => {
+  return groupomaniaApi().get("post/");
 };
 
 let getAllPosts = () => {

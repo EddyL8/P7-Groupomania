@@ -22,11 +22,13 @@
         },
         data() {
             return {
-                posts: []
+                posts: [],
+                users: []
             }
         },
         mounted() {
-            this.getAllPosts()
+            this.getAllPosts();
+            this.getAllUsers();
 
             /*serviceUser.getUser()
             .then((res) => {
@@ -44,10 +46,11 @@
                 })
                 .catch(err => console.log(err))
             },
-            getUser() {
-                serviceUser.getUser()
-                .then(() => {
-                     
+            getAllUsers() {
+                serviceUser.getAllUsers()
+                .then((res) => {
+                    this.posts = res.data
+                    console.log(res.data) 
                 })
                 .catch(err => console.log(err))
             },

@@ -69,7 +69,7 @@ export default defineComponent( {
         return {
             isEdit: false,
             valid: true,
-            errorMessage: '',
+            errorMessage: ''
         }
     },
     computed: {
@@ -81,10 +81,17 @@ export default defineComponent( {
         }
     },
     methods: {
-        getOnePost(id) {
-            servicePost.getOnePost(this.post)
+        getUser() {
+            serviceUser.getUser()
             .then(() => {
-                this.$router.push("/Home", id) 
+  
+            })
+            .catch(err => console.log(err))
+        },
+        getOnePost() {
+            servicePost.getOnePost()
+            .then(() => {
+                //this.$router.push("/Home") 
             })
             .catch(err => console.log(err))
         },

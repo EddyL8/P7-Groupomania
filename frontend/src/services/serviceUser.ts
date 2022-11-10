@@ -15,11 +15,11 @@ let loginUser = async (user) => {
 };
 
 let getUser = () => {
-  return groupomaniaApi().get("user/");
+  return groupomaniaApi().get("auth/:id");
 };
 
 let getAllUsers = () => {
-  return groupomaniaApi().get("auth/users");
+  return groupomaniaApi().get("auth/:id");
 };
 
 let updateUser = (user) => {
