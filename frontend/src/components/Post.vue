@@ -64,9 +64,13 @@ import { serviceAccount } from '../services/serviceAccount';
 
 export default defineComponent( {
     name: "Post",
-    props: ['post', 'user'],
+    props: ['post'],
     data() {
         return {
+            user : {
+                    lastname: '',
+                    firstname: ''
+                },
             isEdit: false,
             valid: true,
             errorMessage: ''

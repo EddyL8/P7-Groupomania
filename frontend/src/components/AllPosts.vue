@@ -1,6 +1,6 @@
 <template>
     <div class="post-container">
-        <Post v-for="(post, user, idx) in posts.slice().reverse()" :post="post" :user="user" @remove="deletePost(idx)" />
+        <Post v-for="(post, idx) in posts.slice().reverse()" :post="post" @remove="deletePost(idx)" />
     </div>
     <div class="no-posts" v-if="posts.length === 0">
         <h1> C'est très calme par ici...</h1>
@@ -22,13 +22,11 @@
         },
         data() {
             return {
-                posts: [],
-                users: []
+                posts: []
             }
         },
         mounted() {
             this.getAllPosts();
-            this.getAllUsers();
 
             /*serviceUser.getUser()
             .then((res) => {
@@ -43,14 +41,6 @@
                     this.posts = res.data
                     console.log(res.data)
                     //this.$router.push("/Home", post) 
-                })
-                .catch(err => console.log(err))
-            },
-            getAllUsers() {
-                serviceUser.getAllUsers(this.user)
-                .then((res) => {
-                    this.posts = res.data
-                    console.log(res.data) 
                 })
                 .catch(err => console.log(err))
             },

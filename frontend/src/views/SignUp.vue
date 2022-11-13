@@ -107,7 +107,7 @@
             submit() {
                 serviceUser.createUser(this.user)
                 .then(() => {
-                    this.$router.push('/Home')
+                    this.$router.push('/Login')
                 })
                 .catch((error: any) => { console.log(error) })
                 this.valid = false;

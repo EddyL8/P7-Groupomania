@@ -1,7 +1,7 @@
 import groupomaniaApi from "./serviceApi";
 import { serviceAccount }  from './serviceAccount'
 
-let createUser = (user) => {
+let createUser = async (user) => {
   return groupomaniaApi().post("auth/signup", user);
 };
 
