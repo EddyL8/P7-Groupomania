@@ -22,7 +22,7 @@ import { serviceAccount } from '../services/serviceAccount'
 import { servicePost } from "../services/servicePost"
 
 export default defineComponent( {
-    name: "createPost",
+    name: "CreatePost",
     data() {
         return {
             file: '',

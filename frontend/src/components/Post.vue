@@ -82,7 +82,7 @@ export default defineComponent( {
     },
     methods: {
         getUser() {
-            serviceUser.getUser()
+            serviceUser.getUser(this.user)
             .then(() => {
   
             })

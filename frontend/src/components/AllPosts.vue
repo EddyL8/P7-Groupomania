@@ -47,7 +47,7 @@
                 .catch(err => console.log(err))
             },
             getAllUsers() {
-                serviceUser.getAllUsers()
+                serviceUser.getAllUsers(this.user)
                 .then((res) => {
                     this.posts = res.data
                     console.log(res.data) 
