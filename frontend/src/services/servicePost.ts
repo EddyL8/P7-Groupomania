@@ -9,8 +9,8 @@ let createPost = (post, file) => {
   return groupomaniaApi().post("/post", formData);
 }
 
-let getOnePost = () => {
-  return groupomaniaApi().get("post/");
+let getOnePost = (id) => {
+  return groupomaniaApi().get("post/" + id);
 };
 
 let getAllPosts = () => {
@@ -30,10 +30,19 @@ let deletePost = (id) => {
   return groupomaniaApi().delete("post/" + id);
 };
 
+let likePost = (id, likeStatus) => {
+  const payload = {
+    like : likeStatus,
+    userId: serviceAccount.getId()
+  };
+  return groupomaniaApi().post("post/" + id + "/like", payload);
+}
+
 export const servicePost = {
     createPost,
     getOnePost,
     getAllPosts,
     modifyPost,
-    deletePost
+    deletePost,
+    likePost
 }

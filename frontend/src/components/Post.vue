@@ -14,10 +14,6 @@
                 </button>
                 <p>{{ post.likes }}</p>
 
-                <button @click="likePost()" name="dislike" class="btn-like">
-                    <i class="fa-solid fa-face-meh-blank"></i>
-                </button>
-                <p>{{ post.dislikes }}</p>
             </div>
 
             <div class="post-modify-delete">
@@ -68,9 +64,9 @@ export default defineComponent( {
     data() {
         return {
             user : {
-                    lastname: '',
-                    firstname: ''
-                },
+                lastname: '',
+                firstname: ''
+            },
             isEdit: false,
             valid: true,
             errorMessage: ''
@@ -84,16 +80,19 @@ export default defineComponent( {
             return serviceAccount.getAdminStatus();
         }
     },
+    mounted() {
+        this.getUser();
+    },
     methods: {
         getUser() {
-            serviceUser.getUser(this.user)
-            .then(() => {
-  
+            serviceUser.getUser(this.post.userId)
+            .then((res) => {
+                this.user = res.data.user
             })
             .catch(err => console.log(err))
         },
         getOnePost() {
-            servicePost.getOnePost()
+            servicePost.getOnePost(this.id)
             .then(() => {
                 //this.$router.push("/Home") 
             })
@@ -137,7 +136,10 @@ export default defineComponent( {
             this.valid = true;
         },
         likePost() {
-
+            servicePost.likePost(this.post._id, 1)
+            .then(() => {
+                this.post.likes ++
+            })
         }
     }
 })
@@ -145,7 +147,16 @@ export default defineComponent( {
 
 <style lang="scss">
 .post-user {
-    color: black;
+    display: flex;
+    margin: 30px 0 0 0;
+    padding: 5px 10px;
+    border: 1px solid #4E5166;
+    border-radius: 10px 10px 0 0;
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+    color: #FFD7D7;
+    background-color: #4E5166;
 }
 .post-modify {
     display: flex;
@@ -159,11 +170,11 @@ export default defineComponent( {
 }
 .post-message {
     display: flex;
-    margin: 15px 0 0 0;
+    margin: 0 0 0 0;
     padding: 10px 15px;
     border: 1px solid #4E5166;
+    border-top: transparent;
     border-bottom: transparent;
-    border-radius: 10px 10px 0 0;
     font-size: 1.2rem;
     text-align: justify;
     color: black;
@@ -184,6 +195,7 @@ export default defineComponent( {
 .btn-post-container {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 15px;
     border: 1px solid #4E5166;
     border-top: transparent;
     border-radius: 0 0 10px 10px;

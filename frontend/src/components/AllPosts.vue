@@ -27,15 +27,11 @@
         },
         mounted() {
             this.getAllPosts();
+            console.log(serviceAccount.getAdminStatus());
 
-            /*serviceUser.getUser()
-            .then((res) => {
-                this.posts = res.data
-                console.log(res.data)
-            })*/
         },
         methods: {
-            getAllPosts(post) {
+            getAllPosts() {
                 servicePost.getAllPosts()
                 .then((res) => {
                     this.posts = res.data

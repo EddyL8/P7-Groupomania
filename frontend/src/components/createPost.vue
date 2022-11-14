@@ -47,7 +47,7 @@ export default defineComponent( {
             servicePost.createPost(this.post, this.file)
             .then(() => {
                 //this.$router.push("/Home");
-                window.location.reload(); 
+                //window.location.reload(); 
             })
             .catch(err => console.log(err));
             this.valid = false;
