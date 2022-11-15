@@ -44,10 +44,13 @@
                 <button type="submit" class="btn-post-modify">Enregistrer les modifications</button>
 
                 <button type="button" class="btn-cancel" @click="cancelEdit">Annuler</button>
-
-                <div v-if="!valid" class="error-message-post">{{ errorMessage }}</div>
             </div>
         </form>
+
+        <div class="message-valid-error">
+            <div class="valid-message-post">{{ validMessage }}</div>
+            <div v-if="!valid" class="error-message-post">{{ errorMessage }}</div>
+        </div>
     </div>
 
 </template>
@@ -69,6 +72,7 @@ export default defineComponent( {
             },
             isEdit: false,
             valid: true,
+            validMessage: '',
             errorMessage: ''
         }
     },
@@ -126,11 +130,14 @@ export default defineComponent( {
             servicePost.modifyPost(this.post, this.file)
             .then(() => {
             //    this.$router.push("/Home")
+                this.validMessage = "Publication modifiée !";
                 window.location.reload();
             })
-            .catch(err => console.log(err));
-            this.valid = false;
-            this.errorMessage = "Veuillez ajouter un message et une image pour envoyer une publication !";
+            .catch(err =>  {
+                this.valid = false;
+                this.errorMessage = "Veuillez ajouter un message et une image pour envoyer une publication !";    
+                console.log(err)
+            });
         },
         resetErrorMessage() {
             this.valid = true;
@@ -171,7 +178,7 @@ export default defineComponent( {
 .post-message {
     display: flex;
     margin: 0 0 0 0;
-    padding: 10px 15px;
+    padding: 10px;
     border: 1px solid #4E5166;
     border-top: transparent;
     border-bottom: transparent;

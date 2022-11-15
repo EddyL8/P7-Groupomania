@@ -13,7 +13,10 @@
 
     <button type="submit" @click.prevent="createPost" class="btn-post">Envoyer</button>
     
-    <div v-if="!valid" class="error-message-post">{{ errorMessage }}</div>
+    <div class="message-valid-error">
+            <div class="valid-message-post">{{ validMessage }}</div>
+            <div v-if="!valid" class="error-message-post">{{ errorMessage }}</div>
+        </div>
 </template>
 
 <script lang="ts">
@@ -30,7 +33,8 @@ export default defineComponent( {
                 message:''
             },
             valid: true,
-            errorMessage: '',
+            validMessage: '',
+            errorMessage: ''
         }
     },
     methods: {
@@ -47,11 +51,14 @@ export default defineComponent( {
             servicePost.createPost(this.post, this.file)
             .then(() => {
                 //this.$router.push("/Home");
-                //window.location.reload(); 
+                this.validMessage = "Publication créée !";
+                window.location.reload(); 
             })
-            .catch(err => console.log(err));
-            this.valid = false;
-            this.errorMessage = "Veuillez ajouter un message et une image pour envoyer une publication !";
+            .catch(err =>  {
+                this.valid = false;
+                this.errorMessage = "Veuillez ajouter un message et une image pour envoyer une publication !";    
+                console.log(err)
+            });
         },
         resetErrorMessage() {
             this.valid = true;

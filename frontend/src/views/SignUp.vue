@@ -1,7 +1,6 @@
 <template>
     <Header />
-    <div class="homepage">
-        
+    <div class="homepage">    
         <img src="../assets/icon-left-font.png" alt="Logo de l'entreprise groupomania" title="logo groupomania" />
         <div class="homepage-bloc">
             <div class='signup-login'>
@@ -37,7 +36,7 @@
                             title="Doit contenir au moins 1 majuscule, 1 miniscule, 1 caractère spécial et 2 chiffres"
                             placeholder="Mot de passe" required>
 
-                        <button class="show-text" @click="toggleShow">
+                        <button class="show-text" @click.prevent="toggleShow">
                             <span class="icon is-small is-right">
                                 <i class="fas" :class="{ 'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"></i>
                             </span>
@@ -54,7 +53,10 @@
                         title="Doit contenir au moins 1 majuscule, 1 miniscule, 1 caractère spécial et 2 chiffres"
                         placeholder="Mot de passe" required>
 
-                    <div v-if="!valid" class="error-message">{{ errorMessage }}</div>
+                    <div class="message-valid-error">
+                        <div class="valid-message-post">{{ validMessage }}</div>
+                        <div v-if="!valid" class="error-message-post">{{ errorMessage }}</div>
+                    </div>
 
                     <input type="submit" @click.prevent="submit" class="btn-homepage" value="S'inscrire">
                 </form>
@@ -91,6 +93,7 @@
                     passwordConfirm: ''
                 },
                 valid: true,
+                validMessage: '',
                 errorMessage: '',
                 showPassword: false
             }
@@ -107,11 +110,14 @@
             submit() {
                 serviceUser.createUser(this.user)
                 .then(() => {
+                    this.validMessage = "Compte utilisateur créé !";
                     this.$router.push('/Login')
                 })
-                .catch((error: any) => { console.log(error) })
-                this.valid = false;
-                this.errorMessage = "Informations invalides ou manquantes !";
+                .catch((error: any) => { 
+                    this.valid = false;
+                    this.errorMessage = "Informations invalides ou manquantes !";
+                    console.log(error) 
+                });
             },
             resetErrorMessage() {
                 this.valid = true;

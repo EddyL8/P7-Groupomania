@@ -15,6 +15,17 @@ h1 {
 .input:focus {
   border: 1px solid #FD2D01;
 }
+.message-valid-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+.valid-message-post {
+  width: 60%;
+  color: green;
+  font-weight: bold;
+}
 .error-message {
   color: #FD2D01;
   font-weight: bold;

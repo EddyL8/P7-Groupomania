@@ -28,7 +28,10 @@
                         </button>
                     </div>
 
-                    <div v-if="!valid" class="error-message">{{ errorMessage }}</div>
+                    <div class="message-valid-error">
+                        <div class="valid-message-post">{{ validMessage }}</div>
+                        <div v-if="!valid" class="error-message-post">{{ errorMessage }}</div>
+                    </div>
 
                     <input type="submit" @click.prevent="submit" class="btn-homepage" value="Se connecter">
                 </form>
@@ -61,6 +64,7 @@
                     password: '',
                 },
                 valid: true,
+                validMessage: '',
                 errorMessage: '',
                 showPassword: false
             }
@@ -77,11 +81,14 @@
             submit() {
                 serviceUser.loginUser(this.user)
                 .then(() => {
+                    this.validMessage = "Connexion à votre compte réussie !";
                     this.$router.push('/Home')
                 })
-                .catch((error: any) => { console.log(error)});
-                this.valid = false;
-                this.errorMessage = "Informations invalides ou manquantes !";
+                .catch((error: any) => { 
+                    this.valid = false;
+                    this.errorMessage = "Informations invalides ou manquantes !";
+                    console.log(error)
+                });
             },
             resetErrorMessage() {
                 this.valid = true;
