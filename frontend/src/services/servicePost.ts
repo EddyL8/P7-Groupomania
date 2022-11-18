@@ -18,7 +18,6 @@ let getAllPosts = () => {
 };
 
 let modifyPost = (post, file) => {
-  post.userId = serviceAccount.getId();
   const formData = new FormData();
   formData.append("post", JSON.stringify(post));
   formData.append("media", file);
