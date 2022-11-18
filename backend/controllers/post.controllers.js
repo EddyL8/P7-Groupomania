@@ -39,7 +39,7 @@ exports.modifyPost = (req, res, next) => {
     delete postObject._userId
     Post.findOne({ _id: req.params.id }) 
     .then(post => {
-      if (post.userId !== req.auth.userId && !isAdmin) {
+      if (post.userId !== req.auth.userId && req.body.isAdmin ) {
 				res.status(401).json({ message: "Non autorisé" })
 			} else {
         const filename = post.mediaUrl.split('/medias/')[1]; 

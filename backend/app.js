@@ -21,7 +21,7 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,    // 15 minutes
-  max: 250                     // 250 requêtes maximum par IP
+  max: 9999                     // 250 requêtes maximum par IP
 });
 app.use(limiter);
 

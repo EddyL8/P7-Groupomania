@@ -68,45 +68,45 @@ export default defineComponent( {
 </script>
 
 <style lang="scss">
-.post-create {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    max-width: 500px;
-}
-textarea {
-    padding: 10px;
-    border: 1px solid #4E5166;
-    border-bottom: transparent;
-    border-radius: 10px 10px 0 0;
-    font-size: 1.2rem;
-    overflow: hidden;
-    resize: none;
-}
-.upload-file {
-    display: flex;
-    margin: 0 0 10px 0;
-    padding: 15px 25px;
-    border: 1px solid #4E5166;
-    border-top: transparent;
-    border-radius: 0 0 10px 10px;
-    background: white;
-}
-.btn-post {
-    width: 80%;
-    max-width: 500px;
-    height: 40px;
-    margin: 5px 0;
-    border: 1px solid #4E5166;
-    border-radius: 10px;
-    color: white;
-    background: #4E5166;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-.btn-post:hover {
-    color: #FFF;
-    background: #FD2D01;
-    transition: 0.2s;
-}
+    .post-create {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        max-width: 500px;
+    }
+    textarea {
+        padding: 10px;
+        border: 1px solid #4E5166;
+        border-bottom: transparent;
+        border-radius: 10px 10px 0 0;
+        font-size: 1.2rem;
+        overflow: hidden;
+        resize: none;
+    }
+    .upload-file {
+        display: flex;
+        margin: 0 0 10px 0;
+        padding: 15px 25px;
+        border: 1px solid #4E5166;
+        border-top: transparent;
+        border-radius: 0 0 10px 10px;
+        background: white;
+    }
+    .btn-post {
+        width: 80%;
+        max-width: 500px;
+        height: 40px;
+        margin: 5px 0;
+        border: 1px solid #4E5166;
+        border-radius: 10px;
+        color: white;
+        background: #4E5166;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+    .btn-post:hover {
+        color: #FFF;
+        background: #FD2D01;
+        transition: 0.2s;
+    }
 </style>

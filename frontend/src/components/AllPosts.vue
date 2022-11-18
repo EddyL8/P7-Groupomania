@@ -1,9 +1,9 @@
 <template>
     <div class="post-container">
-        <Post v-for="(post, idx) in posts.slice().reverse()" :post="post" @remove="deletePost(idx)" />
+        <Post v-for="(post, idx) in posts.slice().reverse()" :post="post" :isAdmin="this.isAdmin" @remove="deletePost(idx)" />
     </div>
     <div class="no-posts" v-if="posts.length === 0">
-        <h1> C'est très calme par ici...</h1>
+        <h1>C'est très calme par ici...</h1>
         <img class="no-posts-img" src="../assets/tumbleweed.gif">
     </div>
 </template>
@@ -25,10 +25,14 @@
                 posts: []
             }
         },
+        computed: {
+            isAdmin() {
+            return serviceAccount.getAdminStatus();
+            }
+        },
         mounted() {
             this.getAllPosts();
             console.log(serviceAccount.getAdminStatus());
-
         },
         methods: {
             getAllPosts() {
@@ -48,10 +52,10 @@
 </script>
 
 <style lang="scss">
-.post-container {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    max-width: 500px;
-}
+    .post-container {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        max-width: 500px;
+    }
 </style>

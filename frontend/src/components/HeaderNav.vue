@@ -39,37 +39,36 @@
             }
         }
     });
-    
 </script>
 
 <style lang="scss">
-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 30px;
-    background-color: #FD2D01;
-}
-.header-logo {
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
-.header-logo img {
-    width: 20%;
-    height: 60px;
-    object-fit: cover;
-}
-.nav {
-    display: flex;
-}
-.button-nav {
-    margin: 20px;
-    font-size: 1.2rem;
-    border: transparent;
-    color: #4E5166;
-    background-color: transparent;
-    cursor: pointer;
-}
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 30px;
+        background-color: #FD2D01;
+    }
+    .header-logo {
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+    .header-logo img {
+        width: 20%;
+        height: 60px;
+        object-fit: cover;
+    }
+    .nav {
+        display: flex;
+    }
+    .button-nav {
+        margin: 20px;
+        font-size: 1.2rem;
+        border: transparent;
+        color: #4E5166;
+        background-color: transparent;
+        cursor: pointer;
+    }
 </style>

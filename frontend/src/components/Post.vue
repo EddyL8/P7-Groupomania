@@ -16,12 +16,12 @@
 
             </div>
 
-            <div class="post-modify-delete">
-                <button v-if="userId === post.userId || isAdmin" @click="toggleToEdit()" 
+            <div class="post-modify-delete" v-if="canModify">
+                <button @click="toggleToEdit()" 
                     class="btn-modify-delete" aria-label="Modifier ce post">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button v-if="userId === post.userId || isAdmin" @click="deletePost()" 
+                <button @click="deletePost()" 
                     class="btn-modify-delete" aria-label="Supprimer ce post">
                     <i class="fa-solid fa-trash"></i>
                 </button>
@@ -63,7 +63,7 @@ import { serviceAccount } from '../services/serviceAccount';
 
 export default defineComponent( {
     name: "Post",
-    props: ['post'],
+    props: ['post', 'isAdmin'],
     data() {
         return {
             user : {
@@ -80,8 +80,9 @@ export default defineComponent( {
         userId() {
             return serviceAccount.getId();
         },
-        isAdmin() {
-            return serviceAccount.getAdminStatus();
+        canModify() {
+            const a = this.post.userId === this.userId || !!this.isAdmin;
+            return a
         }
     },
     mounted() {
@@ -129,7 +130,7 @@ export default defineComponent( {
             console.log('modifyPost')
             servicePost.modifyPost(this.post, this.file)
             .then(() => {
-            //    this.$router.push("/Home")
+            //  this.$router.push("/Home")
                 this.validMessage = "Publication modifiée !";
                 window.location.reload();
             })
@@ -153,124 +154,124 @@ export default defineComponent( {
 </script>
 
 <style lang="scss">
-.post-user {
-    display: flex;
-    margin: 30px 0 0 0;
-    padding: 5px 10px;
-    border: 1px solid #4E5166;
-    border-radius: 10px 10px 0 0;
-    font-size: 1rem;
-    font-weight: bold;
-    font-style: italic;
-    color: #FFD7D7;
-    background-color: #4E5166;
-}
-.post-modify {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-}
-.post-content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-.post-message {
-    display: flex;
-    margin: 0 0 0 0;
-    padding: 10px;
-    border: 1px solid #4E5166;
-    border-top: transparent;
-    border-bottom: transparent;
-    font-size: 1.2rem;
-    text-align: justify;
-    color: black;
-    background-color: white;
-    white-space: pre-line;
-}
-.post-file {
-    padding: 0 10px;
-    border: 1px solid #4E5166;
-    border-top: transparent;
-    border-bottom: transparent;
-    background-color: white;
-}
-.post-file img {
-    width: 100%;
-    cursor: pointer;
-}
-.btn-post-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    border: 1px solid #4E5166;
-    border-top: transparent;
-    border-radius: 0 0 10px 10px;
-    background-color: white;
-}
-.post-like {
-    display: flex;
-}
-.btn-like {
-    margin: 0 10px;
-    font-size: 1rem;
-    border: transparent;
-    color: #4E5166;
-    background-color: transparent;
-    cursor: pointer;
-}
-.btn-like:hover {
-    color: #FD2D01;
-    transition: 0.2s;
-}
-.post-modify-delete {
-    display: flex;
-    justify-content: flex-end;
-}
-.btn-modify-delete {
-    margin: 0 10px;
-    font-size: 1rem;
-    border: transparent;
-    color: #4E5166;
-    background-color: transparent;
-    cursor: pointer;
-}
-.btn-modify-delete:hover {
-    color: #FD2D01;
-    transition: 0.2s;
-}
-.btn-modify {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-.btn-post-modify {
-    width: 70%;
-    max-width: 500px;
-    height: 40px;
-    margin: 5px 0;
-    border: 1px solid #4E5166;
-    border-radius: 10px;
-    color: white;
-    background: #4E5166;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-.btn-cancel {
-    width: 25%;
-    max-width: 500px;
-    height: 40px;
-    margin: 5px 0;
-    border: 1px solid #4E5166;
-    border-radius: 10px;
-    color: white;
-    background: #4E5166;
-    font-size: 1.1rem;
-    cursor: pointer;
-}
-.btn-post-modify:hover, .btn-cancel:hover {
-    color: #FFF;
-    background: #FD2D01;
-    transition: 0.2s;
-}
+    .post-user {
+        display: flex;
+        margin: 30px 0 0 0;
+        padding: 5px 10px;
+        border: 1px solid #4E5166;
+        border-radius: 10px 10px 0 0;
+        font-size: 1rem;
+        font-weight: bold;
+        font-style: italic;
+        color: #FFD7D7;
+        background-color: #4E5166;
+    }
+    .post-modify {
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+    }
+    .post-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .post-message {
+        display: flex;
+        margin: 0 0 0 0;
+        padding: 10px;
+        border: 1px solid #4E5166;
+        border-top: transparent;
+        border-bottom: transparent;
+        font-size: 1.2rem;
+        text-align: justify;
+        color: black;
+        background-color: white;
+        white-space: pre-line;
+    }
+    .post-file {
+        padding: 0 10px;
+        border: 1px solid #4E5166;
+        border-top: transparent;
+        border-bottom: transparent;
+        background-color: white;
+    }
+    .post-file img {
+        width: 100%;
+        cursor: pointer;
+    }
+    .btn-post-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        border: 1px solid #4E5166;
+        border-top: transparent;
+        border-radius: 0 0 10px 10px;
+        background-color: white;
+    }
+    .post-like {
+        display: flex;
+    }
+    .btn-like {
+        margin: 0 10px;
+        font-size: 1rem;
+        border: transparent;
+        color: #4E5166;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    .btn-like:hover {
+        color: #FD2D01;
+        transition: 0.2s;
+    }
+    .post-modify-delete {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .btn-modify-delete {
+        margin: 0 10px;
+        font-size: 1rem;
+        border: transparent;
+        color: #4E5166;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    .btn-modify-delete:hover {
+        color: #FD2D01;
+        transition: 0.2s;
+    }
+    .btn-modify {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .btn-post-modify {
+        width: 70%;
+        max-width: 500px;
+        height: 40px;
+        margin: 5px 0;
+        border: 1px solid #4E5166;
+        border-radius: 10px;
+        color: white;
+        background: #4E5166;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+    .btn-cancel {
+        width: 25%;
+        max-width: 500px;
+        height: 40px;
+        margin: 5px 0;
+        border: 1px solid #4E5166;
+        border-radius: 10px;
+        color: white;
+        background: #4E5166;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+    .btn-post-modify:hover, .btn-cancel:hover {
+        color: #FFF;
+        background: #FD2D01;
+        transition: 0.2s;
+    }
 </style>

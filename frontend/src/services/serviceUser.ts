@@ -18,22 +18,23 @@ let getUser = (id) => {
   return groupomaniaApi().get("auth/" + id);
 };
 
-let getAllUsers = () => {
+/*let getAllUsers = () => {
   return groupomaniaApi().get("auth/");
-};
+};*/
 
-let updateUser = (user) => {
+/*let updateUser = (user) => {
  return groupomaniaApi().patch("auth/user/"+ user.id, user);
-};
+};*/
 
-let deleteUser = (id) => {
+/*let deleteUser = (id) => {
   return groupomaniaApi().delete("/auth/user/"+id)
-}
+}*/
+
 export const serviceUser = {
   createUser,
   loginUser,
   getUser,
-  getAllUsers,
-  updateUser,
-  deleteUser
+  //getAllUsers,
+  //updateUser,
+  //deleteUser
 };
